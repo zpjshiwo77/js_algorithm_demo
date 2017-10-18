@@ -1,0 +1,119 @@
+<!DOCTYPE html>
+<html>
+<head>
+    <meta http-equiv="Content-Type" content="text/html; charset=UTF-8">
+    <meta charset="utf-8">
+    <title>js 算法demo</title>
+    <meta name="keywords" content="js 算法demo" />
+    <meta name="description" content="js 算法demo" />
+    <style>
+    	body{overflow: auto; }
+        .choseBox{width: 700px; height: 200px; margin: 50px auto 20px; border: 2px dashed #333; text-align: center; padding: 30px; }
+        .choseBox textarea{font-size: 16px; padding: 5px; margin-bottom: 10px; }
+        .choseBox select{padding: 5px; font-size: 14px; line-height: 1; float: left;margin-left: 15px;}
+        .choseBox #btn{display: inline-block; font-size: 16px; padding: 5px 10px; background: #333; color: #fff; border-radius: 5px; margin-right: 15px; cursor: pointer; float: right; }
+        #resultBox{width: 700px; height: 350px; margin: 0 auto; border: 1px solid #333; padding: 30px; overflow: auto; font-size: 16px; }
+    </style>
+</head>
+
+<body>
+	<div class="choseBox">
+        <textarea id="ALinput" cols="80" rows="8" placeholder="请输入......"></textarea>
+        <select id="ALtype">
+            <option value="BubbleSort">冒泡排序</option>
+            <option value="LinkedList">单项链表</option>
+            <option value="doubleLinkList">双向链表</option>
+            <option value="LoopLinkList">循环链表</option>
+        </select>
+        <div id="btn">显示结果</div>
+	</div>
+	<div id="resultBox"></div>
+    
+    <script src="js/Algorithm.js"></script>
+	<script>
+        var input = "";
+        var result = "";
+        var type = "";
+
+		document.getElementById("btn").addEventListener("click",showResult);
+
+        //显示结果
+		function showResult () {
+            input = document.getElementById("ALinput").value;
+            index = document.getElementById("ALtype").selectedIndex;
+            type = document.getElementById("ALtype").options[index].value;
+            result = switchType(input,type);
+            console.log(result);
+            document.getElementById("resultBox").innerHTML = result;
+        }//end func
+
+        //选择算法类型
+        function switchType(input,type){
+            var result = "";
+            switch(type){
+                case "BubbleSort":
+                    input = swicthArr(input);
+                    result = AL.sort.BubbleSort(input);
+                    break;
+                case "LinkedList":
+                    var linkList = new AL.linkList.LinkedList();
+                    input = swicthArr(input);
+                    result = dealLinkList(input,linkList);
+                    break;
+                case "doubleLinkList":
+                    var linkList = new AL.linkList.doubleLinkList();
+                    input = swicthArr(input);
+                    result = dealLinkList(input,linkList);
+                    break;
+                case "LoopLinkList":
+                    input = swicthArr(input);
+                    result = ExistenceQs(input[0],input[1]);
+                    break;   
+            }
+            return result;
+        }//end func
+
+        //处理链表
+        function dealLinkList(arr,linkList){
+            for (var i = 0; i < 6; i++) {
+                linkList.newNode(i);
+            };
+            var node3 = linkList.find('6');
+            linkList.newNode("测试",node3);
+            linkList.removeNode("6");
+            return linkList._head;
+        }//end func
+
+        //转换数组
+        function swicthArr(str){
+            return str.split(",");
+        }//end func
+
+        //传说在公元1 世纪的犹太战争中，犹太历史学家弗拉维奥·约瑟夫斯和他的40 个同胞被罗马士兵包围。犹太士兵决定宁可自杀也不做俘虏，于是商量出了一个自杀方案。他们围成一个圈，从一个人开始，数到第三个人时将第三个人杀死，然后再数，直到杀光所有人。约瑟夫和另外一个人决定不参加这个疯狂的游戏，他们快速地计算出了两个位置，站在那里得以幸存。写一段程序将n 个人围成一圈，并且第m个人会被杀掉，计算一圈人中哪两个人最后会存活。使用循环链表解决该问题。
+        function ExistenceQs(n,m){
+            var linkList = new AL.linkList.LoopLinkList();
+
+            for (var i = 1; i <= n; i++) {
+                linkList.newNode(i);
+            };
+
+            var nodeNow = linkList._head.next;
+
+            while(1){
+                for (var i = 0; i < m-1; i++) {
+                    nodeNow = nodeNow.next;
+                    if(nodeNow.content == "head"){
+                        nodeNow = nodeNow.next;
+                    }
+                };
+                var item = nodeNow.content;
+                nodeNow = nodeNow.next;
+                linkList.removeNode(item);
+                if(linkList.length == 2) break;
+            }
+
+            return linkList._head;
+        }//end func
+	</script>
+</body>
+</html>

@@ -1,0 +1,8 @@
+﻿<jscompress public="http://www.jscompress.cn/" command="import-combineset">
+<combinefile path="Algorithm.js">
+    <auto value="1" />
+    <sourcefile path=".\src\Algorithm.js" />
+    <sourcefile path=".\src\Algorithm.sort.js" />
+    <sourcefile path=".\src\Algorithm.linkList.js" />
+</combinefile>
+</jscompress>
