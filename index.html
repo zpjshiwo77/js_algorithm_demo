@@ -24,6 +24,12 @@
             <option value="LinkedList">单项链表</option>
             <option value="doubleLinkList">双向链表</option>
             <option value="LoopLinkList">循环链表</option>
+            <option value="BST">二叉查找树</option>
+            <option value="preOrder">二叉查找树 - 先序遍历</option>
+            <option value="inOrder">二叉查找树 - 中序遍历</option>
+            <option value="postOrder">二叉查找树 - 后序遍历</option>
+            <option value="searchNode">二叉查找树 - 查找节点</option>
+            <option value="deleteNode">二叉查找树 - 删除节点</option>
         </select>
         <div id="btn">显示结果</div>
 	</div>
@@ -50,28 +56,64 @@
         //选择算法类型
         function switchType(input,type){
             var result = "";
+            input = swicthArr(input);
             switch(type){
                 case "BubbleSort":
-                    input = swicthArr(input);
                     result = AL.sort.BubbleSort(input);
                     break;
                 case "LinkedList":
                     var linkList = new AL.linkList.LinkedList();
-                    input = swicthArr(input);
                     result = dealLinkList(input,linkList);
                     break;
                 case "doubleLinkList":
                     var linkList = new AL.linkList.doubleLinkList();
-                    input = swicthArr(input);
                     result = dealLinkList(input,linkList);
                     break;
                 case "LoopLinkList":
-                    input = swicthArr(input);
                     result = ExistenceQs(input[0],input[1]);
+                    break; 
+                case "BST":
+                    result = dealBST(input);
+                    break; 
+                case "preOrder":
+                    result = dealBST(input,"preOrder");
+                    break; 
+                case "inOrder":
+                    result = dealBST(input,"inOrder");
+                    break; 
+                case "postOrder":
+                    result = dealBST(input,"postOrder");
                     break;   
+                case "searchNode":
+                    result = searchDelBST(input,"search");
+                    break; 
+                case "deleteNode":
+                    result = searchDelBST(input,"del");
+                    break; 
             }
             return result;
         }//end func
+
+        //处理二叉查找树
+        function dealBST(arr,type){
+            var Bst = new AL.Tree.BST();
+            for (var i = 0; i < arr.length; i++) {
+                Bst.insert(parseInt(arr[i]));
+            };
+            if(type) return Bst.traversals(type);
+            return Bst.root;
+        }//end func
+
+        //查找删除二叉树节点
+        function searchDelBST(arr,type){
+            var Bst = new AL.Tree.BST();
+            var item = arr.pop();
+            for (var i = 0; i < arr.length; i++) {
+                Bst.insert(parseInt(arr[i]));
+            };
+            if(type == "search") return Bst.search(item);
+            else if(type == "del") return Bst.delNode(parseInt(item));
+        }//end fucn
 
         //处理链表
         function dealLinkList(arr,linkList){

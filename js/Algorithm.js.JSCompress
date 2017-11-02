@@ -4,5 +4,6 @@
     <sourcefile path=".\src\Algorithm.js" />
     <sourcefile path=".\src\Algorithm.sort.js" />
     <sourcefile path=".\src\Algorithm.linkList.js" />
+    <sourcefile path=".\src\Algorithm.Tree.js" />
 </combinefile>
 </jscompress>
